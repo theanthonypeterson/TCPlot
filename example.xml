@@ -1,0 +1,37 @@
+<TCPlot>
+
+	<!-- Plot properties -->
+	<properties>
+		<title font_size="20">My Plot</title>
+		<output_filename>plot.pdf</output_filename>
+		<x_axis_label unit="ms" zero_origin="True" label_font_size="20" tick_font_size="12">Time (ms)</x_axis_label>
+		<y_axis_label unit="KB" zero_origin="True" label_font_size="20" tick_font_size="12">Megabytes</y_axis_label>
+		<legend font_size="16"/>
+	</properties>
+	
+	<!-- Connections -->
+	<connections>
+
+		<connection>
+			<filename>trace.pcap</filename>
+			<source ip="10.2.0.73" port="22"/>	
+			<destination ip="10.2.0.13" port="52195"/>
+			<time from_seconds="0" to_seconds="1"/>
+			<data_segments color="blue" rendered="True" label="Flow 1 Data"/>
+			<acks color="green" rendered="True" label="Flow 1 ACKs"/>
+			<retransmissions color="red" rendered="False" label="Flow 1 Retransmits"/>
+		</connection>
+
+		<connection>
+			<filename>trace.pcap</filename>
+			<source ip="10.2.0.73" port="22"/>	
+			<destination ip="10.2.0.13" port="52196"/>
+			<time from_seconds="0" to_seconds="1"/>
+			<data_segments color="orange" rendered="True" label="Flow 2 Data"/>
+			<acks color="purple" rendered="True" label="Flow 2 ACKs"/>
+			<retransmissions color="red" rendered="False" label="Flow 2 Retransmits"/>
+		</connection>
+
+	</connections>
+	
+</TCPlot>
