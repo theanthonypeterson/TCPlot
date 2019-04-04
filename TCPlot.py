@@ -80,8 +80,6 @@ def main(argv):
 	properties = xml.getElementsByTagName("properties")[0]
 	
 	outputFilename = properties.getElementsByTagName("output_filename")[0].firstChild.data
-	xAxis = properties.getElementsByTagName("x_axis_label")[0].firstChild.data
-	yAxis = properties.getElementsByTagName("y_axis_label")[0].firstChild.data
 
 	# Title
 	title = None
@@ -96,8 +94,11 @@ def main(argv):
 	# Legend properties
 	legend = properties.getElementsByTagName("legend")[0]
 	legendFontSize = 12
+	legendRendered = True
 	if legend.hasAttribute("font_size"):
 		legendFontSize = int(legend.attributes["font_size"].value)
+	if legend.hasAttribute("rendered"):
+		legendRendered = legend.attributes["rendered"].value == "True"
 
 	# Default units if none are specified
 	xAxisUnit = "s"
@@ -108,10 +109,17 @@ def main(argv):
 	yAxisTickFontSize = 12
 	xAxisTicks = None
 	yAxisTicks = None
+	yAxis = ""
+	xAxis = ""
 
 	# Get axis units
 	xAxisTag = properties.getElementsByTagName("x_axis_label")[0]
 	yAxisTag = properties.getElementsByTagName("y_axis_label")[0]
+
+	if xAxisTag.hasAttribute("label"):
+		xAxis = xAxisTag.attributes["label"].value
+	if yAxisTag.hasAttribute("label"):
+		yAxis = yAxisTag.attributes["label"].value
 	
 	if xAxisTag.hasAttribute("unit"):
 		xAxisUnit = xAxisTag.attributes["unit"].value
@@ -267,10 +275,12 @@ def main(argv):
 	# Add padding to left because of the
 	# large sequence numbers
 	#plt.gcf().subplots_adjust(left=0.2)
-	legend = plt.legend(fontsize=legendFontSize, markerscale=2)
-	legend_frame = legend.get_frame()
-	legend_frame.set_edgecolor("black")
-	legend_frame.set_linewidth(1.0)
+	
+	if legendRendered:
+		legend = plt.legend(fontsize=legendFontSize, markerscale=2)
+		legend_frame = legend.get_frame()
+		legend_frame.set_edgecolor("black")
+		legend_frame.set_linewidth(1.0)
 
 	if xAxisTicks is not None:
 		plt.yticks(xAxisTicks)

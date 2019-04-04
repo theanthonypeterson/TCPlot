@@ -30,7 +30,12 @@ def filterBySocket(pcap, srcIP, srcPort, dstIP, dstPort):
 # RETURNS: true iff packet is in forward direction
 def isForwardDirection(buf, srcIP, srcPort, dstIP, dstPort):
 	ethernet = dpkt.ethernet.Ethernet(buf)
+	if not isinstance(ethernet.data, dpkt.ip.IP):
+		return False
 	ip = ethernet.data
+
+	if not isinstance(ip.data, dpkt.tcp.TCP):
+		return False
 	tcp = ip.data
 	tcpSrcIP = inet_to_str(ip.src)
 	tcpDstIP = inet_to_str(ip.dst)
@@ -41,7 +46,12 @@ def isForwardDirection(buf, srcIP, srcPort, dstIP, dstPort):
 # RETURNS: true iff packet is in reverse direction
 def isReverseDirection(buf, srcIP, srcPort, dstIP, dstPort):
 	ethernet = dpkt.ethernet.Ethernet(buf)
+	if not isinstance(ethernet.data, dpkt.ip.IP):
+		return False
 	ip = ethernet.data
+
+	if not isinstance(ip.data, dpkt.tcp.TCP):
+		return False
 	tcp = ip.data
 	tcpSrcIP = inet_to_str(ip.src)
 	tcpDstIP = inet_to_str(ip.dst)
