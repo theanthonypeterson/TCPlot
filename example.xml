@@ -4,8 +4,8 @@
 	<properties>
 		<title font_size="20">My Plot</title>
 		<output_filename>plot.pdf</output_filename>
-		<x_axis_label unit="ms" zero_origin="True" label_font_size="20" tick_font_size="12">Time (ms)</x_axis_label>
-		<y_axis_label unit="KB" zero_origin="True" label_font_size="20" tick_font_size="12">Megabytes</y_axis_label>
+		<x_axis_label unit="ms" zero_origin="True" label_font_size="20" tick_font_size="12" label="Time (ms)"/>
+		<y_axis_label unit="KB" zero_origin="True" label_font_size="20" tick_font_size="12" label="Megabytes"/>
 		<legend font_size="16"/>
 	</properties>
 	
